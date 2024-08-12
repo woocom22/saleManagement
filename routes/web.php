@@ -8,3 +8,4 @@ Route::get('/', function () {
 });
 Route::post('/user-registration', [userController::class, 'userRegistration'])->name('userRegistration');
 Route::post('/user-login', [userController::class, 'userRegistration'])->name('userLogin');
+Route::get('/send-otp', [userController::class, 'SendOTPCode'])->name('SendOTPCode');

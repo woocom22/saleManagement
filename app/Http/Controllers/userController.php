@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\helper\jwtToken;
+use App\Mail\OTPMail;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class userController extends Controller
 {
@@ -48,6 +50,14 @@ class userController extends Controller
        $count=User::where('email','=',$email)->count();
 
        if ($count==1){
+           // Send OTP to email
+            Mail::to($email)->send(new OTPMail($otp));
+            // store otp code in db
+           User::where('email','=',$email)->update(['otp'=>$otp]);
+           return response()->json([
+               'status' => 'success',
+               'message'=>'4 digit code sent to your email'
+           ],200);
 
        }else{
            return response()->json([

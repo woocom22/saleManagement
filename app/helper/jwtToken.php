@@ -6,7 +6,7 @@ use PHPUnit\Exception;
 
 class jwtToken
 {
-    function createToken($userEmail): string               // user email address
+    public static function createToken($userEmail): string               // user email address
     {
         $key = env('JWT_KEY');
         $payload = [
@@ -17,7 +17,7 @@ class jwtToken
         ];
         return JWT::encode($payload, $key, 'HS256');  // return type string
     }
-    function  VerifyToken($token):string
+    public static function  VerifyToken($token):string
     {
         try {
             $key = env('JWT_KEY');
